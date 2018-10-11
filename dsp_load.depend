@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1539219999 source:e:\learn\cc++\rasp_dsp_load\dsp_load\main.cpp
+	<iostream>
+	"Dsp1451.h"
+
+1539152812 source:e:\learn\cc++\rasp_dsp_load\dsp_load\src\raspi2c.cpp
+	<unistd.h>
+	<fcntl.h>
+	<stdio.h>
+	<string.h>
+	<iostream>
+	"RaspI2C.h"
+
+1539152612 e:\learn\cc++\rasp_dsp_load\dsp_load\include\raspi2c.h
+
+1539225453 source:e:\learn\cc++\rasp_dsp_load\dsp_load\src\dsp1451.cpp
+	<string.h>
+	<iostream>
+	"Dsp1451.h"
+
+1539227918 e:\learn\cc++\rasp_dsp_load\dsp_load\include\dsp1451.h
+	"RaspI2C.h"
+	"ADAU1451_IC_1.h"
+
+1539223807 e:\learn\cc++\rasp_dsp_load\dsp_load\include\adau1451_ic_1.h
+	"SigmaStudioFW.h"
+	"ADAU1451_IC_1_REG.h"
+
+1521091794 e:\learn\cc++\rasp_dsp_load\dsp_load\include\sigmastudiofw.h
+
+1539131132 e:\learn\cc++\rasp_dsp_load\dsp_load\include\adau1451_ic_1_reg.h
+
