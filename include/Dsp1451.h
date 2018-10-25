@@ -58,6 +58,7 @@ class CDsp1451
         void InitSection9();
         void WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData);
         CRaspI2C mRaspI2CObj;
+        bool mbIsDspReady;
 };
 
 #endif // DSP1451_H

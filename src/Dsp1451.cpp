@@ -11,6 +11,7 @@ using namespace std;
 CDsp1451::CDsp1451()
 {
     //ctor
+    mbIsDspReady = false;
     mRaspI2CObj.SetAddress(DSP1451_ADDR);
     mRaspI2CObj.Init();
     if (mRaspI2CObj.GetErrorCode() != 0)
@@ -20,6 +21,7 @@ CDsp1451::CDsp1451()
     else
     {
         cout << "DSP device init ok." << endl;
+        mbIsDspReady = true;
     }
 
 }
@@ -31,6 +33,11 @@ CDsp1451::~CDsp1451()
 
 void CDsp1451::Load()
 {
+    if (!mbIsDspReady) 
+    {
+        cout << "DSP device is not ready!" << endl;
+        return;
+    }
     InitSection1();
     InitSection2();
     InitSection3();
@@ -44,6 +51,11 @@ void CDsp1451::Load()
 
 void CDsp1451::WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData)
 {
+    if (!mbIsDspReady) 
+    {
+        cout << "DSP device is not ready!" << endl;
+        return;
+    }
     unsigned char buffer[2+ADAU1451_REGISTER_LEN];
     buffer[0]=(regAddr>>8);
     buffer[1]=(regAddr&0xff);
@@ -189,6 +201,11 @@ void CDsp1451::InitSection9()
 }
 void CDsp1451::SetVolume(unsigned int volume)
 {
+    if (!mbIsDspReady) 
+    {
+        cout << "DSP device is not ready!" << endl;
+        return;
+    }
     unsigned char vol_iic[ADAU1451_UPDATE_VOLUME_LEN] = {0,0,0,0,0,0}; /* write DSP register */
     int reg_addr= ADAU1451_VOLUME_ADDR;
     if(volume > MAX_VOLUME)
@@ -219,6 +236,7 @@ void CDsp1451::Sleep(unsigned int mode)
             buffer[2] = DATA_PLL_CLOCK_DISABLE >> 8;
             buffer[3] = DATA_PLL_CLOCK_DISABLE & 0xff;
             mRaspI2CObj.Write(PLL_CLOCK_CTRL_LEN, &buffer[0]);
+            mbIsDspReady = false;
             break;
         }
         case DSP_PLL_CLOCK_ENABLE:
@@ -229,6 +247,7 @@ void CDsp1451::Sleep(unsigned int mode)
             buffer[2] = DATA_PLL_CLOCK_ENABLE >> 8;
             buffer[3] = DATA_PLL_CLOCK_ENABLE & 0xff;
             mRaspI2CObj.Write(PLL_CLOCK_CTRL_LEN, &buffer[0]);
+            mbIsDspReady = true;
             break;
         }
         default:
