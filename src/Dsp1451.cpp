@@ -207,3 +207,32 @@ void CDsp1451::SetVolume(unsigned int volume)
     vol_iic[5] = volume;
     mRaspI2CObj.Write(ADAU1451_UPDATE_VOLUME_LEN, &vol_iic[0]);
 }
+void CDsp1451::Sleep(unsigned int mode)
+{
+    switch(mode)
+    {
+        case DSP_PLL_CLOCK_DISABLE:
+        {
+            unsigned char buffer[4];
+            buffer[0] = (REG_ADDR_PLL_CLOCK >> 8);
+            buffer[1] = (REG_ADDR_PLL_CLOCK & 0xff);
+            buffer[2] = DATA_PLL_CLOCK_DISABLE >> 8;
+            buffer[3] = DATA_PLL_CLOCK_DISABLE & 0xff;
+            mRaspI2CObj.Write(PLL_CLOCK_CTRL_LEN, &buffer[0]);
+            break;
+        }
+        case DSP_PLL_CLOCK_ENABLE:
+        {
+            unsigned char buffer[4];
+            buffer[0] = (REG_ADDR_PLL_CLOCK >> 8);
+            buffer[1] = (REG_ADDR_PLL_CLOCK & 0xff);
+            buffer[2] = DATA_PLL_CLOCK_ENABLE >> 8;
+            buffer[3] = DATA_PLL_CLOCK_ENABLE & 0xff;
+            mRaspI2CObj.Write(PLL_CLOCK_CTRL_LEN, &buffer[0]);
+            break;
+        }
+        default:
+      		cout << "Unknown DSP sleep mode!" << endl;
+            break;
+    }
+}

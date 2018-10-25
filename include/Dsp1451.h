@@ -26,6 +26,8 @@ extern "C"
 //#define REG_SOFT_RESET_IC_2_VALUE                 0x1
 
 
+#define DSP_PLL_CLOCK_DISABLE                   (0)
+#define DSP_PLL_CLOCK_ENABLE                    (1)
 
 #define SIGMA_WRITE_REGISTER_BLOCK(dev_address, reg_addr, data_len, pdata) \
     WriteRegister(reg_addr, data_len, (unsigned char*)pdata);
@@ -40,6 +42,7 @@ class CDsp1451
         ~CDsp1451();
         void Load();
         void SetVolume(unsigned int volume);
+        void Sleep(unsigned int mode);
 
     protected:
 
