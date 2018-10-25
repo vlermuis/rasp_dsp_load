@@ -1,13 +1,14 @@
 #ifndef RASPI2C_H
 #define RASPI2C_H
 
+#define MAX_WRITE_BUF 		(512) 
 
-class RaspI2C
+class CRaspI2C
 {
     public:
-        RaspI2C();
-        ~RaspI2C();
-        RaspI2C(int dev_addr);
+        CRaspI2C();
+        ~CRaspI2C();
+        CRaspI2C(int dev_addr);
         void Init();
         void SetAddress(int dev_addr);
 

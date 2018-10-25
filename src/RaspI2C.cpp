@@ -7,22 +7,23 @@
 #include <iostream>
 #include "RaspI2C.h"
 
-RaspI2C::RaspI2C()
+using namespace std;
+CRaspI2C::CRaspI2C()
 {
     //ctor
 }
 
-RaspI2C::~RaspI2C()
+CRaspI2C::~CRaspI2C()
 {
     //dtor
 }
 
-RaspI2C::RaspI2C(int dev_addr) {
+CRaspI2C::CRaspI2C(int dev_addr) {
 
 	InitDevice(dev_addr);
 }
 
-void RaspI2C::Init()
+void CRaspI2C::Init()
 {
 	if (0 != device_address)
 	{
@@ -30,16 +31,16 @@ void RaspI2C::Init()
 	}
 }
 
-void RaspI2C::SetAddress(int dev_addr)
+void CRaspI2C::SetAddress(int dev_addr)
 {
 	device_address = dev_addr;
 }
 
-int RaspI2C::GetErrorCode(){
+int CRaspI2C::GetErrorCode(){
 	return lastErrCode;
 }
 
-void RaspI2C::InitDevice(int dev_addr)
+void CRaspI2C::InitDevice(int dev_addr)
 {
 	char *filename = (char*)"/dev/i2c-1";
 	if ((file_i2c = open(filename, O_RDWR)) < 0)
@@ -58,7 +59,7 @@ void RaspI2C::InitDevice(int dev_addr)
 	lastErrCode = 0;
 }
 
-void RaspI2C::Read(int reg, int size, unsigned char* data){
+void CRaspI2C::Read(int reg, int size, unsigned char* data){
 
     unsigned char addr_dat[2];
     addr_dat[1] = 0xaa;//(unsigned char)(reg & 0xFF);
@@ -80,7 +81,7 @@ void RaspI2C::Read(int reg, int size, unsigned char* data){
 	lastErrCode = 0;
 }
 
-void RaspI2C::Write(int size, unsigned char* data){
+void CRaspI2C::Write(int size, unsigned char* data){
 
 	if (write(file_i2c, data, size) != size)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
@@ -91,7 +92,7 @@ void RaspI2C::Write(int size, unsigned char* data){
 	lastErrCode = 0;
 }
 
-void RaspI2C::WriteToReg(int reg, int size, unsigned char* data){
+void CRaspI2C::WriteToReg(int reg, int size, unsigned char* data){
 
     unsigned char dat_to_write[MAX_WRITE_BUF];
     dat_to_write[1] = (unsigned char)(reg & 0xFF);

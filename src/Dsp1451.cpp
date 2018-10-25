@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Dsp1451::Dsp1451()
+CDsp1451::CDsp1451()
 {
     //ctor
     mRaspI2CObj.SetAddress(DSP1451_ADDR);
@@ -24,12 +24,12 @@ Dsp1451::Dsp1451()
 
 }
 
-Dsp1451::~Dsp1451()
+CDsp1451::~CDsp1451()
 {
     //dtor
 }
 
-void Dsp1451::Load()
+void CDsp1451::Load()
 {
     InitSection1();
     InitSection2();
@@ -42,7 +42,7 @@ void Dsp1451::Load()
     InitSection9();
 }
 
-void Dsp1451::WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData)
+void CDsp1451::WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData)
 {
     unsigned char buffer[2+ADAU1451_REGISTER_LEN];
     buffer[0]=(regAddr>>8);
@@ -52,19 +52,19 @@ void Dsp1451::WriteRegister(unsigned int regAddr, unsigned int size, unsigned ch
 
 }
 
-void Dsp1451::InitSection1()
+void CDsp1451::InitSection1()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_SOFT_RESET_IC_2_ADDR, REG_SOFT_RESET_IC_2_BYTE, R0_SOFT_RESET_IC_2_Default );
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_SOFT_RESET_IC_2_ADDR, REG_SOFT_RESET_IC_2_BYTE, R1_SOFT_RESET_IC_2_Default );
 }
 
-void Dsp1451::InitSection2()
+void CDsp1451::InitSection2()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_HIBERNATE_IC_2_ADDR, REG_HIBERNATE_IC_2_BYTE, R3_HIBERNATE_IC_2_Default );
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_HIBERNATE_IC_2_ADDR, REG_HIBERNATE_IC_2_BYTE, R4_HIBERNATE_IC_2_Default );
 }
 
-void Dsp1451::InitSection3()
+void CDsp1451::InitSection3()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_KILL_CORE_IC_2_ADDR, REG_KILL_CORE_IC_2_BYTE, R6_KILL_CORE_IC_2_Default );
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_KILL_CORE_IC_2_ADDR, REG_KILL_CORE_IC_2_BYTE, R7_KILL_CORE_IC_2_Default );
@@ -76,7 +76,7 @@ void Dsp1451::InitSection3()
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_PLL_ENABLE_IC_2_ADDR, REG_PLL_ENABLE_IC_2_BYTE, R13_PLL_ENABLE_IC_2_Default );
 }
 
-void Dsp1451::InitSection4()
+void CDsp1451::InitSection4()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_POWER_ENABLE0_IC_2_ADDR, REG_POWER_ENABLE0_IC_2_BYTE, R15_POWER_ENABLE0_IC_2_Default );
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_POWER_ENABLE1_IC_2_ADDR, REG_POWER_ENABLE1_IC_2_BYTE, R16_POWER_ENABLE1_IC_2_Default );
@@ -120,7 +120,7 @@ void Dsp1451::InitSection4()
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_SPDIF_RESTART_IC_2_ADDR, REG_SPDIF_RESTART_IC_2_BYTE, R54_SPDIF_RESTART_IC_2_Default );
 }
 
-void Dsp1451::InitSection5()
+void CDsp1451::InitSection5()
 {
     unsigned char buffer[PROGRAM_RAM_PAGE_SIZE+2];
     int RegAddr;
@@ -138,7 +138,7 @@ void Dsp1451::InitSection5()
 
 }
 
-void Dsp1451::InitSection6()
+void CDsp1451::InitSection6()
 {
     unsigned char buffer[PARA_RAM_PAGE_SIZE+2];
     int RegAddr;
@@ -156,7 +156,7 @@ void Dsp1451::InitSection6()
 
 }
 
-void Dsp1451::InitSection7()
+void CDsp1451::InitSection7()
 {
     unsigned char buffer[DM1_PAGE_SIZE+2];
     int RegAddr;
@@ -174,7 +174,7 @@ void Dsp1451::InitSection7()
 
 }
 
-void Dsp1451::InitSection8()
+void CDsp1451::InitSection8()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_KILL_CORE_IC_2_ADDR, REG_KILL_CORE_IC_2_BYTE, R58_KILL_CORE_IC_2_Default );
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_START_ADDRESS_IC_2_ADDR, REG_START_ADDRESS_IC_2_BYTE, R59_START_ADDRESS_IC_2_Default );
@@ -183,7 +183,7 @@ void Dsp1451::InitSection8()
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_START_CORE_IC_2_ADDR, REG_START_CORE_IC_2_BYTE, R62_START_CORE_IC_2_Default );
 }
 
-void Dsp1451::InitSection9()
+void CDsp1451::InitSection9()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_HIBERNATE_IC_2_ADDR, REG_HIBERNATE_IC_2_BYTE, R64_HIBERNATE_IC_2_Default );
 }

@@ -31,11 +31,11 @@ extern "C"
 
 
 
-class Dsp1451
+class CDsp1451
 {
     public:
-        Dsp1451();
-        ~Dsp1451();
+        CDsp1451();
+        ~CDsp1451();
         void Load();
         void WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData);
 
@@ -51,7 +51,7 @@ class Dsp1451
         void InitSection7();
         void InitSection8();
         void InitSection9();
-        RaspI2C mRaspI2CObj;
+        CRaspI2C mRaspI2CObj;
 };
 
 #endif // DSP1451_H
