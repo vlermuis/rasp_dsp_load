@@ -1,6 +1,7 @@
 #ifndef DSP1451_H
 #define DSP1451_H
 #include "RaspI2C.h"
+#include "adau1451_config.h"
 
 //typedef unsigned char ADI_REG_TYPE;
 #define ADI_REG_TYPE  static unsigned char
@@ -29,7 +30,8 @@ extern "C"
 #define SIGMA_WRITE_REGISTER_BLOCK(dev_address, reg_addr, data_len, pdata) \
     WriteRegister(reg_addr, data_len, (unsigned char*)pdata);
 
-
+#define MAX_VOLUME      (90)
+#define MIN_VOLUME      (0)
 
 class CDsp1451
 {
@@ -37,7 +39,7 @@ class CDsp1451
         CDsp1451();
         ~CDsp1451();
         void Load();
-        void WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData);
+        void SetVolume(unsigned int volume);
 
     protected:
 
@@ -51,6 +53,7 @@ class CDsp1451
         void InitSection7();
         void InitSection8();
         void InitSection9();
+        void WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData);
         CRaspI2C mRaspI2CObj;
 };
 

@@ -187,3 +187,23 @@ void CDsp1451::InitSection9()
 {
 	SIGMA_WRITE_REGISTER_BLOCK( DEVICE_ADDR_IC_2, REG_HIBERNATE_IC_2_ADDR, REG_HIBERNATE_IC_2_BYTE, R64_HIBERNATE_IC_2_Default );
 }
+void CDsp1451::SetVolume(unsigned int volume)
+{
+    unsigned char vol_iic[ADAU1451_UPDATE_VOLUME_LEN] = {0,0,0,0,0,0}; /* write DSP register */
+    int reg_addr= ADAU1451_VOLUME_ADDR;
+    if(volume > MAX_VOLUME)
+    {
+        volume = MAX_VOLUME;
+    }
+    else if(volume < MIN_VOLUME)
+    {
+        volume = MIN_VOLUME;
+    }
+    vol_iic[0] = reg_addr >> 8;
+    vol_iic[1] = reg_addr & 0x00FF;
+    vol_iic[2] = 0;
+    vol_iic[3] = 0;
+    vol_iic[4] = 0;
+    vol_iic[5] = volume;
+    mRaspI2CObj.Write(ADAU1451_UPDATE_VOLUME_LEN, &vol_iic[0]);
+}
