@@ -2,6 +2,7 @@
 #define DSP1451_H
 #include "RaspI2C.h"
 #include "adau1451_config.h"
+#include "Dsp.h"
 
 //typedef unsigned char ADI_REG_TYPE;
 #define ADI_REG_TYPE  static unsigned char
@@ -35,7 +36,7 @@ extern "C"
 #define MAX_VOLUME      (90)
 #define MIN_VOLUME      (0)
 
-class CDsp1451
+class CDsp1451 : public CDsp
 {
     public:
         CDsp1451();
