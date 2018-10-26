@@ -12,7 +12,7 @@ CDsp1451::CDsp1451()
 {
     //ctor
     mbIsDspReady = false;
-    mRaspI2CObj.SetAddress(DSP1451_ADDR);
+    mRaspI2CObj.SetAddress(DEVICE_ADDR_IC_2);
     mRaspI2CObj.Init();
     if (mRaspI2CObj.GetErrorCode() != 0)
     {
@@ -201,6 +201,7 @@ void CDsp1451::InitSection9()
 }
 void CDsp1451::SetVolume(unsigned int volume)
 {
+    cout << "CDsp1451::SetVolume()" << endl;
     if (!mbIsDspReady) 
     {
         cout << "DSP device is not ready!" << endl;
@@ -226,6 +227,7 @@ void CDsp1451::SetVolume(unsigned int volume)
 }
 void CDsp1451::Sleep(unsigned int mode)
 {
+    cout << "CDsp1451::Load()" << endl;
     switch(mode)
     {
         case DSP_PLL_CLOCK_DISABLE:

@@ -13,8 +13,8 @@ extern "C"
 }
 
 
-#define DSP1451_ADDR                    (0x70)
-#define DEVICE_ADDR_IC_2                (0x70)
+//#define DSP1451_ADDR                    (0x70)
+//#define DEVICE_ADDR_IC_2                (0x70)
 #define ADAU1451_REGISTER_LEN           (4)
 #define PROGRAM_RAM_PAGE_SIZE           (4)
 #define PARA_RAM_PAGE_SIZE              (4)
