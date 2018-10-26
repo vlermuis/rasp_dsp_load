@@ -20,6 +20,8 @@ int main()
     {
         cout << "DataToFloat() - error!" << endl;
     }
+    unsigned int r824 = pDsp1451->FloatTo8_24Data(1.9);
+    unsigned int r523 = pDsp1451->FloatTo5_23Data(1.9);
     free(pDsp1451);
     cout << "Bazzinga!" << endl;
     return 0;

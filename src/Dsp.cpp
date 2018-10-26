@@ -71,3 +71,96 @@ float CDsp::DataToFloat(unsigned int data, unsigned char fmt_num, unsigned char 
     }
     return value_float;
 }
+/**
+ * Convert standard float number to DSP float raw data 8.24
+ *
+ * @param      float_val: float value
+ *
+ * @return     starnard float number
+ * 
+ * @example
+ *   float_val=16.000000   ==>  return 0x10000000
+ *   float_val=1.000000    ==>  return 0x01000000
+ *   float_val=0.800000    ==>  return 0x00cccccd
+ *   float_val=0.500000    ==>  return 0x00800000
+ *   float_val=0.250000    ==>  return 0x00400000
+ *   float_val=0.000000    ==>  return 0x00000000
+ *   float_val=-16.000000  ==>  return 0xf0000000
+ *   float_val=-15.000000  ==>  return 0xf1000000
+ *   float_val=-1.000000   ==>  return 0xff000000
+ */
+unsigned int CDsp::FloatTo8_24Data(float float_val)
+{
+    //Check invalid 8.24 float
+    if(float_val>=128.0 || float_val<-128.0) {
+        //ASSERT(0);
+        cout << "\r\n*** DSPDrv1451_FloatTo8_24Data: invalid floating nubmer \r\n\r\n" << endl;
+        return 0;
+    }
+    int64_t param_1;
+    param_1 = float_val * (1<<24);
+    unsigned int data = (unsigned int)param_1;
+
+    return data;
+}
+
+/**
+ * Convert standard float number to DSP float raw data 5.23
+ *
+ * @param      float_val: float value
+ *
+ * @return     starnard float number
+ * 
+ * @note       do not support negative float 
+ * 
+ * @example
+ *   float=0.000000   => 0x00000000
+ *   float=0.500000   => 0x00400000
+ *   float=0.250000   => 0x00200000
+ *   float=0.015625   => 0x00020000
+ *   float=15.984375  => 0x07FE0000
+ *   float=15.9999998807907 => 0x07FFFFFF  (max)
+ *   float=-0.500000  => 0xFFC00000
+ *   float=-0.250000  => 0xFFE00000
+ *   float=-0.015625  => 0xFFFE0000
+ *   float=-15.984375 => 0xF8020000
+ *   float=-16.0      => 0xF8000000  (min)
+ *
+ * @ref
+ *   https://wiki.analog.com/resources/tools-software/sigmastudio/usingsigmastudio/systemimplementation
+ *
+ */
+unsigned int CDsp::FloatTo5_23Data(float float_val)
+{
+  int32_t param223, param227;
+  unsigned int res= 0;
+  unsigned char * pRes= (unsigned char *)&res;
+  
+  if( float_val>=16.0 || float_val<-16.0)
+  {
+      //ASSERT(0);
+       cout << "\r\n*** CDsp::FloatTo5_23Data: invalid floating nubmer \r\n\r\n" << endl;
+      return 0;
+  }
+  
+  param223 = float_val * (1L << 23);  //multiply decimal number by 2^23
+  //printf("param223= %08x (transfer from double: %f)\r\n", param223, float_val * (1L << 23));
+  
+  param227 = param223 ;
+  param227+= (1L << 27);       //convert to positive binary      
+  pRes[0] = (unsigned char)param227;         //get byte 0 (LSBs) of parameter value
+  pRes[1] = (unsigned char)(param227>>8);    //get byte 1 of parameter value
+  pRes[2] = (unsigned char)(param227>>16);   //get byte 2 of parameter value
+  pRes[3] = (unsigned char)(param227>>24);   //get byte 3 (MSBs) of parameter value  
+  //printf("pRes 1= %02x %02x %02x %02x\r\n", pRes[3], pRes[2], pRes[1], pRes[0]);
+  
+  pRes[3] = pRes[3] ^ 0x08;     //invert sign bit to get correct sign  
+  //printf("pRes 2= %02x %02x %02x %02x\r\n", pRes[3], pRes[2], pRes[1], pRes[0]);
+  
+  if(pRes[3] & 0x08)
+    pRes[3] |= 0xF0;  
+  //printf("pRes 3= %02x %02x %02x %02x\r\n", pRes[3], pRes[2], pRes[1], pRes[0]); 
+  //printf("%f => %08x\r\n", float_val, res);
+  
+  return res;
+}

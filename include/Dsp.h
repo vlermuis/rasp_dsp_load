@@ -23,6 +23,8 @@ class CDsp
         virtual void SetVolume(unsigned int volume);
         virtual void Sleep(unsigned int mode);
         float DataToFloat(unsigned int data, unsigned char fmt_num, unsigned char fmt_frac);
+        unsigned int FloatTo8_24Data(float float_val);
+        unsigned int FloatTo5_23Data(float float_val);
 
     protected:
 
