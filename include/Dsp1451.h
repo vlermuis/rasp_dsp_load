@@ -7,10 +7,7 @@
 //typedef unsigned char ADI_REG_TYPE;
 #define ADI_REG_TYPE  static unsigned char
 
-extern "C"
-{
 #include "ADAU1451_IC_1.h"
-}
 
 
 //#define DSP1451_ADDR                    (0x70)

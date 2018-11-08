@@ -2,11 +2,8 @@
 #define ADAU1761_CONFIG_H
 
 
-extern "C"
-{
 #include "ADAU1761_IC_1_PARAM.h"
 #include "ADAU1761_IC_1_REG.h"
-}
 
 #define ADAU1761_MAX_TX_BYTES   80
 

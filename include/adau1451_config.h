@@ -2,11 +2,8 @@
 #define ADAU1451_CONFIG_H
 
 
-extern "C"
-{
 #include "ADAU1451_IC_1_PARAM.h"
 #include "ADAU1451_IC_1_REG.h"
-}
 
 
 
