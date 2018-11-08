@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Dsp1451.h"
+#include "Dsp1761.h"
 using namespace std;
 
 //CDsp1451 dspObj;
@@ -22,7 +23,16 @@ int main()
     }
     unsigned int r824 = pDsp1451->FloatTo8_24Data(1.9);
     unsigned int r523 = pDsp1451->FloatTo5_23Data(1.9);
+    
     free(pDsp1451);
+
+
+
+    CDsp1761* pDsp1761 = new(CDsp1761);
+    pDsp1761->Load();
+    pDsp1761->SetVolume(65);
+    free(pDsp1761);
+
     cout << "Bazzinga!" << endl;
     return 0;
 }
