@@ -7,12 +7,14 @@
  */
 #define UINT32_GET_BIT_RANGE(ver, high_pos, low_pos) \
    ((((unsigned int)ver)<<(32-(high_pos)-1))>>(32-(high_pos)+(low_pos)-1))
+   
 /* Get bit range from a 4bytes value, for example,
  *   UINT32_GET_BIT_RANGE(0x12345678, 3)  ==>  return 0x1
  *   UINT32_GET_BIT_RANGE(0x12345678, 2)  ==>  return 0x0
  */ 
 #define UINT32_GET_BIT(ver, pos) \
    ((((unsigned int)ver)>>(pos)) & 1)
+
 
 class CDsp
 {

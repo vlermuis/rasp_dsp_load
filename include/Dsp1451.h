@@ -4,10 +4,14 @@
 #include "adau1451_config.h"
 #include "Dsp.h"
 
+
 //typedef unsigned char ADI_REG_TYPE;
 #define ADI_REG_TYPE  static unsigned char
 
+// extern "C"
+// {
 #include "ADAU1451_IC_1.h"
+// }
 
 
 //#define DSP1451_ADDR                    (0x70)
@@ -26,6 +30,8 @@
 
 #define DSP_PLL_CLOCK_DISABLE                   (0)
 #define DSP_PLL_CLOCK_ENABLE                    (1)
+
+
 
 #define SIGMA_WRITE_REGISTER_BLOCK(dev_address, reg_addr, data_len, pdata) \
     WriteRegister(reg_addr, data_len, (unsigned char*)pdata);
@@ -55,6 +61,7 @@ class CDsp1451 : public CDsp
         void InitSection8();
         void InitSection9();
         void WriteRegister(unsigned int regAddr, unsigned int size, unsigned char* pData);
+
         CRaspI2C mRaspI2CObj;
         bool mbIsDspReady;
 };
